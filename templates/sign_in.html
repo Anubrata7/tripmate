@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to TripMate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 800px;
+        }
+
+        .left {
+            background: url('static/img/background-img.jpg') center/cover no-repeat;
+            padding: 40px;
+            width: 40%;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .left h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .left p {
+            font-size: 1rem;
+        }
+
+        .left .btn {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .left .btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .right {
+            padding: 40px;
+            width: 60%;
+        }
+
+        .right h1 {
+            color: #43AA8B;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center; /* Ensures text is centered */
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            color: #555;
+            font-size: 1.2rem;
+            transition: background-color 0.3s, color 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            background-color: #43AA8B;
+            color: #fff;
+        }
+
+        .social-icons img {
+            width: 20px;
+            height: 20px;
+            margin-left: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+
+        .forgot-password a {
+            color: #43AA8B;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            background-color: #43AA8B;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #38A78A;
+        }
+
+        .right p {
+            color: grey;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h1>Hello, Friends!</h1>
+            <p>Enter your personal details and start journey with us</p>
+            <form>
+                <button type="submit" class="btn"><a href="{{ url_for('sign_up') }}" target="_self" style="color: white; text-decoration: none;">Sign Up</a></button>
+            </form>
+        </div>
+        <div class="right">
+            <h1>Welcome in TripMate</h1>
+            <div class="social-icons">
+                <a href="#" title="Sign in with Facebook"><i class="fab fa-facebook-f"></i><img src="{{ url_for('static', filename='img/logo/facebook.png') }}" alt="Facebook Logo"></a>
+                <a href="#" title="Sign in with Google"><i class="fab fa-google"></i><img src="{{ url_for('static', filename='img/logo/google.png') }}" alt="Google Logo"></a>
+                <a href="#" title="Sign in with LinkedIn"><i class="fab fa-linkedin-in"></i><img src="{{ url_for('static', filename='img/logo/message.png') }}" alt="LinkedIn Logo"></a>
+            </div>
+            <p>or use your email account</p>
+            <form>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="✉️ Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="🔒 Enter your password" required>
+                </div>
+                <div class="forgot-password">
+                    <a href="#">Forgot your password?</a>
+                </div>
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

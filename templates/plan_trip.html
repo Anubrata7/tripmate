@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Trip Plan</title>
+</head>
+<body>
+    <h1>Your Planned Trip</h1>
+    <p><strong>Route:</strong> {{ data.get('route', 'N/A') }}</p>
+    <p><strong>Transport:</strong> {{ data.get('transport', 'N/A') }}</p>
+    <p><strong>Weather:</strong> {{ data.get('weather', 'N/A') }}</p>
+    <p><strong>Hotels:</strong> {{ data.get('hotels', 'N/A') }}</p>
+    <p><strong>Estimated Cost:</strong> {{ data.get('estimated_cost', 'N/A') }}</p>
+</body>
+</html>

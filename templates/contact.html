@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='contact.css') }}">
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="contactInfo">
+                <div>
+                    <h2>Contact Info</h2>
+                    <ul class="info">
+                        <li>
+                            <span><img src="{{ url_for('static', filename='img/contact-logo/location.png') }}" alt=""></span>
+                            <span>
+                                Habra, West Kamarthuba<br>
+                                North 24 PGS, West Bengal<br>
+                                743263
+                            </span>
+                        </li>
+                        <!-- Email Link -->
+                        <li>
+                            <span><img src="{{ url_for('static', filename='img/contact-logo/mail.png') }}" alt="Email icon"></span>
+                            <span>
+                                <a href="mailto:bristisamadder197@gmail.com">bristisamadder197@gmail.com</a>
+                            </span>
+                        </li>
+                        <!-- Phone Number Link -->
+                        <li>
+                            <span><img src="{{ url_for('static', filename='img/contact-logo/call.png') }}" alt="Phone icon"></span>
+                            <span>
+                                <a href="tel:+919153554996">+91 9153554996</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Social Media Icons (Facebook, Twitter, LinkedIn) -->
+                <ul class="socialIcon">
+                    <li>
+                        <a href="https://www.facebook.com/bristi.samadder.96" target="_blank">
+                            <img src="{{ url_for('static', filename='img/contact-logo/fb.png') }}" alt="Facebook">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://x.com/BristiSamadder" target="_blank">
+                            <img src="{{ url_for('static', filename='img/contact-logo/tw.png') }}" alt="Twitter">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/bristi-samadder-a953aa21a/" target="_blank">
+                            <img src="{{ url_for('static', filename='img/contact-logo/ldin.png') }}" alt="LinkedIn">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="contactForm">
+                <h2>Send a Message</h2>
+                <div class="formBox">
+                    <div class="inputBox w50">
+                        <input type="text" name="firstName" id="firstName" required>
+                        <span>First Name</span>
+                        <small id="firstNameError" class="error-message">This field cannot be empty.</small>
+                    </div>
+                    <div class="inputBox w50">
+                        <input type="text" name="lastName" id="lastName" required>
+                        <span>Last Name</span>
+                        <small id="lastNameError" class="error-message">This field cannot be empty.</small>
+                    </div>
+                    <div class="inputBox w50">
+                        <input type="email" name="email" id="email" required>
+                        <span>Email</span>
+                        <small id="emailError" class="error-message">Please enter a valid email address.</small>
+                    </div>
+                    <div class="inputBox w50">
+                        <input type="tel" name="phone" id="phone" required>
+                        <span>Mobile Number</span>
+                        <small id="phoneError" class="error-message">Phone number must be 10 digits.</small>
+                    </div>
+                    <div class="inputBox w100">
+                        <textarea name="message" id="message" required></textarea>
+                        <span>Write Your Message Here</span>
+                        <small id="messageError" class="error-message">This field cannot be empty.</small>
+                    </div>
+                    <div class="inputBox w100">
+                        <input type="submit" value="Submit" onclick="validateForm(event)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();  // Prevent the form from submitting automatically
+
+            // Get form elements
+            var firstName = document.getElementById("firstName");
+            var lastName = document.getElementById("lastName");
+            var email = document.getElementById("email");
+            var phone = document.getElementById("phone");
+            var message = document.getElementById("message");
+
+            // Get error elements
+            var firstNameError = document.getElementById("firstNameError");
+            var lastNameError = document.getElementById("lastNameError");
+            var emailError = document.getElementById("emailError");
+            var phoneError = document.getElementById("phoneError");
+            var messageError = document.getElementById("messageError");
+
+            // Reset error states
+            firstName.classList.remove("error");
+            lastName.classList.remove("error");
+            email.classList.remove("error");
+            phone.classList.remove("error");
+            message.classList.remove("error");
+
+            firstNameError.style.display = "none";
+            lastNameError.style.display = "none";
+            emailError.style.display = "none";
+            phoneError.style.display = "none";
+            messageError.style.display = "none";
+
+            var valid = true;
+
+            // Check if the fields are empty
+            if (firstName.value.trim() === "") {
+                firstName.classList.add("error");
+                firstNameError.style.display = "block";
+                valid = false;
+            }
+
+            if (lastName.value.trim() === "") {
+                lastName.classList.add("error");
+                lastNameError.style.display = "block";
+                valid = false;
+            }
+
+            // Validate email format
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value)) {
+                email.classList.add("error");
+                emailError.style.display = "block";
+                valid = false;
+            }
+
+            // Validate phone number (must be 10 digits)
+            if (phone.value.length !== 10 || isNaN(phone.value)) {
+                phone.classList.add("error");
+                phoneError.style.display = "block";
+                valid = false;
+            }
+
+            // Check if the message is empty
+            if (message.value.trim() === "") {
+                message.classList.add("error");
+                messageError.style.display = "block";
+                valid = false;
+            }
+
+            // If everything is valid, submit the form
+            if (valid) {
+                alert("Form is valid and ready to submit!");
+            }
+
+            return valid;
+        }
+    </script>
+</body>
+</html>

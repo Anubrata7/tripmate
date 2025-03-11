@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to TripMate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bootstrap-navbar {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .original-header {
+                display: none;
+            }
+            .bootstrap-navbar {
+                display: block;
+            }
+        }
+
+        @media (min-width: 481px) {
+            .original-header {
+                display: block;
+            }
+            .bootstrap-navbar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Navbar for small screens -->
+    <header class="original-header" style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: #fff; z-index: 1000;">
+        <div class="menu-toggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#trip-planning">Plan your trip</a></li>
+                <li><a href="#booking_plans">Bookings</a></li>
+                <li><a href="#customer-reviews">About</a></li>
+                <li><a href="{{ url_for('sign_in') }}">Sign in / Sign up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Bootstrap Navbar for small screens -->
+    <header class="bootstrap-navbar navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#booking_plans">Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#customer-reviews">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btnn" href="{{ url_for('sign_in') }}">Log in / Sign up</a>
+                </li>
+
+            </ul>
+        </div>
+    </header>
+
+<main>
+    <!-- Features Section  -->
+    <section class="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 style="color: #fff;">Welcome to TripMate</h1>
+                    <p style="color: #fff;"><strong>Make your travel easy with us</strong></p>
+                    <p style="color: #fff;">Smart & Safe Travel Planner simplifies travel with personalized routes, weather updates, and safety recommendations. Enjoy seamless bookings and real-time support for a secure journey.</p>
+                    <a href="#thank-you" class="btnn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trip planning Section  -->
+    <section class="trip-planning" id="trip-planning">
+        <div class="container">
+          <h2 class="trip-planning-header">Plan Your Perfect Trip</h2>
+          <form class="trip-planning-form">
+            <div class="trip-planning__form-group">
+              <label for="startpoint">Start Point</label>
+              <input type="text" id="startpoint" name="startpoint" placeholder="Enter your start point" required>
+            </div>
+      
+            <div class="trip-planning__form-group">
+              <label for="destination">Destination</label>
+              <input type="text" id="destination" name="destination" placeholder="Enter your destination" required>
+            </div>
+      
+            <div class="trip-planning__form-group">
+              <label for="dates">Travel Dates</label>
+              <input type="date" id="start-date" name="start-date" required>
+            </div>
+      
+            <div class="trip-planning__form-group">
+              <label for="transport">Mode of Transport</label>
+              <select id="transport" name="transport" required>
+                <option value="" disabled selected>Select your mode</option>
+                <option value="bike">Bike</option>
+                <option value="car">Car</option>
+              </select>
+            </div>
+            
+            <div id="bike_transport-details" style="display: none;">
+                <div class="trip-planning__form-group">
+                    <label for="bike_pace">Travel Pace</label>
+                    <select id="bike_pace" name="bike_pace" required>
+                        <option value="" disabled selected>Select your pace</option>
+                        <option value="bike_quick">Quick</option>
+                        <option value="bike_moderate">Moderate</option>
+                        <option value="bike_peaceful">Peaceful</option>
+                    </select>
+                </div>
+            </div>
+            <div id="car_transport-details" style="display: none;">
+              <div class="trip-planning__form-group">
+                  <label for="car_pace">Travel Pace</label>
+                  <select id="car_pace" name="car_pace" required>
+                      <option value="" disabled selected>Select your pace</option>
+                      <option value="car_quick">Quick</option>
+                      <option value="car_moderate">Moderate</option>
+                      <option value="car_peaceful">Peaceful</option>
+                  </select>
+              </div>
+          </div>
+      
+            <div class="trip-planning__form-group">
+                <label for="hotels">Book Hotels</label>
+                <select id="hotels" name="hotels" required>
+                  <option value="" disabled selected>Select an option</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+            </div>
+
+            <div id="hotel-details" style="display: none;">
+                <div class="trip-planning__form-group">
+                    <label for="budget">Budget</label>
+                    <select id="budget" name="budget">
+                        <option value="" disabled selected>Select your budget</option>
+                        <option value="affordable">Affordable</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="luxury">Luxury</option>
+                    </select>
+                </div>
+
+                <div class="trip-planning__form-group">
+                    <label for="no-of-rooms">Number of Rooms Required</label>
+                    <input type="number" id="no-of-rooms" name="no-of-rooms" min="1" max="5" placeholder="Enter number of rooms required" required>
+                </div>
+        
+                <div class="trip-planning__form-group">
+                    <label for="no-of-persons">Number of Persons</label>
+                    <input type="number" id="no-of-persons" name="no-of-persons" min="1" max="10" placeholder="Enter number of people" required>
+                </div>
+        
+                <div id="booking-details-container" class="trip-planning__form-group">
+                    <!-- Dynamic Booking Details Will Be Added Here -->
+                </div>
+            </div>
+      
+            <button type="submit" class="trip-planning__submit-button">Plan My Trip</button>
+          </form>
+        </div>
+    </section>
+
+    <!-- Suggestion slider Section  -->
+    <section class="suggestion-slider" id="suggestions">
+      <div class="container">
+        <h2>Most Popular Routes</h2>
+        <div class="slider-container">
+            <div class="slider">
+                <!-- Suggestion Box 1 -->
+                <div class="suggestion-box" id="suggestion-box-1">
+                    <h3> Manali to Leh</h3>
+                    <p><strong>Stay:</strong> 4 days in hotels</p>
+                    <p><strong>Attractions:</strong> Rohtang Pass, Pangong Lake, Magnetic Hill</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 2 -->
+                <div class="suggestion-box" id="suggestion-box-2">
+                    <h3> Mumbai to Goa</h3>
+                    <p><strong>Stay:</strong> 3 days in hotels</p>
+                    <p><strong>Attractions:</strong> Beaches, Fort Aguada, Chapora Fort</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 3 -->
+                <div class="suggestion-box" id="suggestion-box-3">
+                  <h3> Delhi to Manali</h3>
+                  <p><strong>Stay:</strong> 3 days in hotels</p>
+                  <p><strong>Attractions:</strong> Solang Valley, Hidimba Temple, Paragliding</p>
+                  <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 4 -->
+                <div class="suggestion-box" id="suggestion-box-4">
+                    <h3> Kolkata to Darjeeling</h3>
+                    <p><strong>Stay:</strong> 2 days in hotels</p>
+                    <p><strong>Attractions:</strong> Tiger Hill, Batasia Loop, Tea Gardens</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 5 -->
+                <div class="suggestion-box" id="suggestion-box-5">
+                    <h3> Chennai to Pondicherry</h3>
+                    <p><strong>Stay:</strong> 1 day in hotels</p>
+                    <p><strong>Attractions:</strong> Beaches, French Quarter, Auroville</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 6 -->
+                <div class="suggestion-box" id="suggestion-box-6">
+                  <h3> Hyderabad to Araku Valley</h3>
+                  <p><strong>Stay:</strong> 2 days in hotels</p>
+                  <p><strong>Attractions:</strong> Borra Caves, Coffee Plantations, Waterfalls</p>
+                  <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 7 -->
+                <div class="suggestion-box" id="suggestion-box-7">
+                    <h3> Shimla to Spiti Valley</h3>
+                    <p><strong>Stay:</strong> 3 days in hotels</p>
+                    <p><strong>Attractions:</strong> Chandratal Lake, Monasteries, Snow-Covered Peaks</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 1 -->
+                <div class="suggestion-box" id="suggestion-box-1-repeat">
+                    <h3> Manali to Leh</h3>
+                    <p><strong>Stay:</strong> 4 days in hotels</p>
+                    <p><strong>Attractions:</strong> Rohtang Pass, Pangong Lake, Magnetic Hill</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 2 -->
+                <div class="suggestion-box" id="suggestion-box-2-repeat">
+                    <h3> Mumbai to Goa</h3>
+                    <p><strong>Stay:</strong> 3 days in hotels</p>
+                    <p><strong>Attractions:</strong> Beaches, Fort Aguada, Chapora Fort</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 3 -->
+                <div class="suggestion-box" id="suggestion-box-3-repeat">
+                  <h3> Delhi to Manali</h3>
+                  <p><strong>Stay:</strong> 3 days in hotels</p>
+                  <p><strong>Attractions:</strong> Solang Valley, Hidimba Temple, Paragliding</p>
+                  <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 4 -->
+                <div class="suggestion-box" id="suggestion-box-4-repeat">
+                    <h3> Kolkata to Darjeeling</h3>
+                    <p><strong>Stay:</strong> 2 days in hotels</p>
+                    <p><strong>Attractions:</strong> Tiger Hill, Batasia Loop, Tea Gardens</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 5 -->
+                <div class="suggestion-box" id="suggestion-box-5-repeat">
+                    <h3> Chennai to Pondicherry</h3>
+                    <p><strong>Stay:</strong> 1 day in hotels</p>
+                    <p><strong>Attractions:</strong> Beaches, French Quarter, Auroville</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 6 -->
+                <div class="suggestion-box" id="suggestion-box-6-repeat">
+                    <h3> Hyderabad to Araku Valley</h3>
+                    <p><strong>Stay:</strong> 2 days in hotels</p>
+                    <p><strong>Attractions:</strong> Borra Caves, Coffee Plantations, Waterfalls</p>
+                    <button class="btnn">Go to Trip</button>
+                  </div>
+                  <!-- Repeat Suggestion Box 7 -->
+                  <div class="suggestion-box" id="suggestion-box-7-repeat">
+                      <h3> Shimla to Spiti Valley</h3>
+                      <p><strong>Stay:</strong> 3 days in hotels</p>
+                      <p><strong>Attractions:</strong> Chandratal Lake, Monasteries, Snow-Covered Peaks</p>
+                      <button class="btnn">Go to Trip</button>
+                  </div>
+            </div>
+        </div>
+
+        <div class="slider-container">
+            <div class="slider-1">
+                <!-- Suggestion Box 8 -->
+                <div class="suggestion-box" id="suggestion-box-8">
+                    <h3> Bangalore to Coorg</h3>
+                    <p><strong>Stay:</strong> 2 days in hotels</p>
+                    <p><strong>Attractions:</strong> Abbey Falls, Coffee Plantations, Elephant Camp</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 9 -->
+                <div class="suggestion-box" id="suggestion-box-9">
+                  <h3> Ahmedabad to Kutch</h3>
+                  <p><strong>Stay:</strong> 2 days in hotels</p>
+                  <p><strong>Attractions:</strong> Rann of Kutch, White Desert, Kalo Dungar</p>
+                  <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 10 -->
+                <div class="suggestion-box" id="suggestion-box-10">
+                    <h3> Jaipur to Jaisalmer</h3>
+                    <p><strong>Stay:</strong> 3 days in hotels</p>
+                    <p><strong>Attractions:</strong> Jaisalmer Fort, Sand Dunes, Camel Safari</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 11 -->
+                <div class="suggestion-box" id="suggestion-box-11">
+                    <h3> Pune to Lonavala</h3>
+                    <p><strong>Stay:</strong> 1 day in hotels</p>
+                    <p><strong>Attractions:</strong> Bhushi Dam, Tiger's Point, Caves</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 12 -->
+                <div class="suggestion-box" id="suggestion-box-12">
+                  <h3> Guwahati to Shillong</h3>
+                  <p><strong>Stay:</strong> 2 days in hotels</p>
+                  <p><strong>Attractions:</strong> Umiam Lake, Living Root Bridge, Waterfalls</p>
+                  <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 13 -->
+                <div class="suggestion-box" id="suggestion-box-13">
+                    <h3> Lucknow to Varanasi</h3>
+                    <p><strong>Stay:</strong> 1 day in hotels</p>
+                    <p><strong>Attractions:</strong> Ghats, Kashi Vishwanath Temple, Sarnath</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 14 -->
+                <div class="suggestion-box" id="suggestion-box-14">
+                    <h3> Ranchi to Netarhat</h3>
+                    <p><strong>Stay:</strong> 1 day in hotels</p>
+                    <p><strong>Attractions:</strong> Sunrise Point, Waterfalls, Forests</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Suggestion Box 15 -->
+                <div class="suggestion-box" id="suggestion-box-15">
+                  <h3> Dehradun to Mussoorie</h3>
+                  <p><strong>Stay:</strong> 1 day in hotels</p>
+                  <p><strong>Attractions:</strong> Kempty Falls, Mall Road, Lal Tibba</p>
+                  <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 8 -->
+                <div class="suggestion-box" id="suggestion-box-8-repeat">
+                    <h3> Bangalore to Coorg</h3>
+                    <p><strong>Stay:</strong> 2 days in hotels</p>
+                    <p><strong>Attractions:</strong> Abbey Falls, Coffee Plantations, Elephant Camp</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 9 -->
+                <div class="suggestion-box" id="suggestion-box-9-repeat">
+                  <h3> Ahmedabad to Kutch</h3>
+                  <p><strong>Stay:</strong> 2 days in hotels</p>
+                  <p><strong>Attractions:</strong> Rann of Kutch, White Desert, Kalo Dungar</p>
+                  <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 10 -->
+                <div class="suggestion-box" id="suggestion-box-10-repeat">
+                    <h3> Jaipur to Jaisalmer</h3>
+                    <p><strong>Stay:</strong> 3 days in hotels</p>
+                    <p><strong>Attractions:</strong> Jaisalmer Fort, Sand Dunes, Camel Safari</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 11 -->
+                <div class="suggestion-box" id="suggestion-box-11-repeat">
+                    <h3> Pune to Lonavala</h3>
+                    <p><strong>Stay:</strong> 1 day in hotels</p>
+                    <p><strong>Attractions:</strong> Bhushi Dam, Tiger's Point, Caves</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 12 -->
+                <div class="suggestion-box" id="suggestion-box-12-repeat">
+                  <h3> Guwahati to Shillong</h3>
+                  <p><strong>Stay:</strong> 2 days in hotels</p>
+                  <p><strong>Attractions:</strong> Umiam Lake, Living Root Bridge, Waterfalls</p>
+                  <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 13 -->
+                <div class="suggestion-box" id="suggestion-box-13-repeat">
+                    <h3> Lucknow to Varanasi</h3>
+                    <p><strong>Stay:</strong> 1 day in hotels</p>
+                    <p><strong>Attractions:</strong> Ghats, Kashi Vishwanath Temple, Sarnath</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 14 -->
+                <div class="suggestion-box" id="suggestion-box-14-repeat">
+                    <h3> Ranchi to Netarhat</h3>
+                    <p><strong>Stay:</strong> 1 day in hotels</p>
+                    <p><strong>Attractions:</strong> Sunrise Point, Waterfalls, Forests</p>
+                    <button class="btnn">Go to Trip</button>
+                </div>
+                <!-- Repeat Suggestion Box 15 -->
+                <div class="suggestion-box" id="suggestion-box-15-repeat">
+                  <h3> Dehradun to Mussoorie</h3>
+                  <p><strong>Stay:</strong> 1 day in hotels</p>
+                  <p><strong>Attractions:</strong> Kempty Falls, Mall Road, Lal Tibba</p>
+                  <button class="btnn">Go to Trip</button>
+                </div>
+            </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Booking & booking_plans Section  -->
+    <section class="booking_plans" id="booking_plans">
+        <h2>Your Trips</h2>
+        <div class="track_bookings" id="track_bookings">
+          <ul>
+            <li>
+              <a href="#track_bookings" id="upcoming-link">
+                Upcoming Bookings (<span id="upcoming-count">0</span>)
+              </a>
+            </li>
+            <li>
+              <a href="#track_bookings" id="cancelled-link">
+                Cancelled Bookings (<span id="cancelled-count">0</span>)
+              </a>
+            </li>
+            <li>
+              <a href="#track_bookings" id="completed-link">
+                Completed Bookings (<span id="completed-count">0</span>)
+              </a>
+            </li>
+          </ul>
+        </div>
+      
+        <section id="booking-sections">
+          <!-- Dynamic Booking Content Will Be Injected Here -->
+        </section>
+    </section>     
+
+    <!-- Customer-reviews Section -->
+    <section class="customer-reviews" id="customer-reviews">
+        <div class="container">
+            <h2>Customer Reviews</h2>
+            <div class="review-slider-container">
+                <div class="review-slider">
+                    <div class="review">
+                        <p>"The route suggestions were perfect! Saved us so much time and effort. Highly recommended for travelers."</p>
+                        <p class="reviewer">- Anubrata Deb</p>
+                    </div>
+                    <div class="review">
+                        <p>"The weather alerts were a lifesaver. We avoided a heavy storm thanks to TripMate . Excellent service!"</p>
+                        <p class="reviewer">- Bristi Samadder</p>
+                    </div>
+                    <div class="review">
+                        <p>"The hotel recommendations fit our budget perfectly. Loved the seamless booking process!"</p>
+                        <p class="reviewer">- Shreeja Roy</p>
+                    </div>
+                    <div class="review">
+                        <p>"Real-time safety alerts made our road trip stress-free. TripMate is a must-have for long-distance travelers."</p>
+                        <p class="reviewer">- Abhas Kumar</p>
+                    </div>
+                    <div class="review">
+                        <p>"The GPS tracking and emergency contact features gave us peace of mind during our family trip. Brilliant app!"</p>
+                        <p class="reviewer">- Prakriti Adhikari</p>
+                    </div>
+                    <div class="review">
+                        <p>"A game-changer for solo travelers! I felt safe and well-prepared throughout my journey."</p>
+                        <p class="reviewer">- Rohan Sharma</p>
+                    </div>
+                    <div class="review">
+                        <p>"Loved how easy it was to plan our trip. TripMate handled everything from routes to accommodations seamlessly."</p>
+                        <p class="reviewer">- Neha Kapoor</p>
+                    </div>
+                    <div class="review">
+                        <p>"The trip planning was spot on, and the customer support was prompt. Fantastic experience!"</p>
+                        <p class="reviewer">- Arjun Mehta</p>
+                    </div>
+                    <div class="review">
+                        <p>"Being able to customize the itinerary was great. The travel suggestions were very helpful."</p>
+                        <p class="reviewer">- Sneha Roy</p>
+                    </div>
+                    <div class="review">
+                        <p>"An all-in-one solution for travel planning. Weather, safety, and budget options were on point!"</p>
+                        <p class="reviewer">- Vishal Gupta</p>
+                    </div>
+                    <div class="review">
+                        <p>"The route suggestions were perfect! Saved us so much time and effort. Highly recommended for travelers."</p>
+                        <p class="reviewer">- Anubrata Deb</p>
+                    </div>
+                    <div class="review">
+                        <p>"The weather alerts were a lifesaver. We avoided a heavy storm thanks to the TripMate. Excellent service!"</p>
+                        <p class="reviewer">- Bristi Samadder</p>
+                    </div>
+                    <div class="review">
+                        <p>"The hotel recommendations fit our budget perfectly. Loved the seamless booking process!"</p>
+                        <p class="reviewer">- Shreeja Roy</p>
+                    </div>
+                    <div class="review">
+                        <p>"Real-time safety alerts made our road trip stress-free. TripMate is a must-have for long-distance travelers."</p>
+                        <p class="reviewer">- Abhas Kumar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer & Thank-you Section & Social links -->
+<footer>
+    <div class="footer-content" id="thank-you">
+        <div class="container">
+            <h2>Thank You for Visiting!</h2>
+            <p>We appreciate your interest in our services. Follow us on social media for updates:</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fa fa-facebook"></i><img src="{{ url_for('static', filename='img/logo/facebook.png') }}" alt="Facebook"></a>
+                <a href="#" class="social-link"><i class="fa fa-twitter"></i><img src="{{ url_for('static', filename='img/logo/instagram.png') }}" alt="Instagram"></a>
+                <a href="#" class="social-link"><i class="fa fa-instagram"><img src="{{ url_for('static', filename='img/logo/twitter-sign.png') }}" alt="Twitter"></i></a>
+                <a href="#" class="social-link"><i class="fa fa-linkedin"></i><img src="{{ url_for('static', filename='img/logo/message.png') }}" alt="LinkedIn"></a>
+            </div>
+            <a href="{{ url_for('contact') }}" class="btnn">Contact Us</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p>&copy; 2024 TripMate. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap script link -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    const hotelSelect = document.getElementById('hotels');
+    const hotelDetails = document.getElementById('hotel-details');
+    const transportSelect = document.getElementById('transport');
+    const transportDetailsBike = document.getElementById('bike_transport-details');
+    const transportDetailsCar = document.getElementById('car_transport-details');
+    const noOfPersonsInput = document.getElementById('no-of-persons');
+    const bookingDetailsContainer = document.getElementById('booking-details-container');
+    const carPaceField = document.getElementById('car_pace');
+    const bikePaceField = document.getElementById('bike_pace');
+    const roomsField = document.getElementById('no-of-rooms');
+    const personsField = document.getElementById('no-of-persons');
+  
+    // Show or hide hotel details based on the "Book Hotels" selection
+    hotelSelect.addEventListener('change', () => {
+      if (hotelSelect.value === 'yes') {
+        hotelDetails.style.display = 'block';
+        roomsField.required = true;
+        personsField.required = true;
+      } else {
+        hotelDetails.style.display = 'none';
+        roomsField.required = false;
+        personsField.required = false;
+        bookingDetailsContainer.innerHTML = ''; // Clear booking details
+      }
+    });
+
+    transportSelect.addEventListener('change', () => {
+      if (transportSelect.value === 'bike') {
+        transportDetailsBike.style.display = 'block';
+        transportDetailsCar.style.display = 'none';
+        carPaceField.required = false;
+        bikePaceField.required = true;
+      } else {
+        transportDetailsBike.style.display = 'none';
+        transportDetailsCar.style.display = 'block';
+        carPaceField.required = true;
+        bikePaceField.required = false;
+      }
+
+    })
+  
+    // Dynamically add booking details based on the number of persons
+    noOfPersonsInput.addEventListener('input', () => {
+      const noOfPersons = parseInt(noOfPersonsInput.value, 10);
+      bookingDetailsContainer.innerHTML = ''; // Clear previous inputs
+  
+      if (noOfPersons > 0) {
+        for (let i = 1; i <= noOfPersons; i++) {
+          const personDetails = `
+            <div class="person-details">
+              <br>
+              <label for="name-${i}">Name</label>
+              <input type="text" id="name-${i}" name="name-${i}" placeholder="Enter name" required>
+  
+              <label for="age-${i}">Age</label>
+              <input type="number" id="age-${i}" name="age-${i}" min="0" max="100" placeholder="Age" required>
+  
+              <label for="gender-${i}">Gender</label>
+              <select id="gender-${i}" name="gender-${i}" required>
+                <option value="" disabled selected>Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          `;
+          bookingDetailsContainer.insertAdjacentHTML('beforeend', personDetails);
+        }
+      }
+    });
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const bookings = {
+    upcoming: [
+      { trip: 'Mumbai to Goa', date: '15-02-2025', type: 'Bike', id: 'TM74239' },
+    ],
+    cancelled: [
+      { trip: 'Sealdah to Lanka', date: '12-05-2024', type: 'Car', id: 'TM89905', refund: '₹1,195' },
+    ],
+    completed: [
+      { trip: 'Delhi to Jaipur', date: '20-11-2023', type: 'Bike', id: 'TM54321'},
+    ],
+  };
+
+  const updateCounts = () => {
+    document.getElementById('upcoming-count').textContent = bookings.upcoming.length;
+    document.getElementById('cancelled-count').textContent = bookings.cancelled.length;
+    document.getElementById('completed-count').textContent = bookings.completed.length;
+  };
+
+  const renderBookings = (type, data) => {
+    const section = document.getElementById('booking-sections');
+    section.innerHTML = ''; // Clear previous content
+
+    data.forEach((booking) => {
+      const div = document.createElement('div');
+      div.className = 'booking-section';
+      div.innerHTML = `
+        <h2>${booking.trip}</h2>
+        <p> Date: ${booking.date}</p>
+        <p>${booking.type} | Booking ID: ${booking.id}</p>
+        <p>${type === 'cancelled' ? `Refund: ${booking.refund}` : ''}</p>
+      `;
+      section.appendChild(div);
+    });
+  };
+
+  updateCounts();
+
+  // Event Listeners
+  document.getElementById('upcoming-link').addEventListener('click', () => renderBookings('upcoming', bookings.upcoming));
+  document.getElementById('cancelled-link').addEventListener('click', () => renderBookings('cancelled', bookings.cancelled));
+  document.getElementById('completed-link').addEventListener('click', () => renderBookings('completed', bookings.completed));
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.trip-planning-form').addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent form submission
+
+        const formData = {
+            startpoint: document.getElementById('startpoint').value,
+            destination: document.getElementById('destination').value,
+            start_date: document.getElementById('start-date').value,
+            transport: document.getElementById('transport').value,
+            hotels: document.getElementById('hotels').value,
+        };
+        console.log(formData);
+
+        // Sending data using fetch
+        fetch('/submit_trip', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(fromData),
+        })
+        .then(response => response.json())
+        .then(data => console.log("Data sent successfully!", data))
+        .catch(error => console.error("Error:", error));
+
+       
+    });
+});
+
+</script>
+</body>
+</html>
